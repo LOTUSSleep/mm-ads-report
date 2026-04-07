@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Mattress — Google Ads Strategy, Site Audit & Launch Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c8102e;
+    --glow: rgba(200,16,46,.35);
+    --dark: #000;
+    --card: rgba(255,255,255,.035);
+    --border: rgba(255,255,255,.07);
+    --text: rgba(255,255,255,.75);
+    --text-dim: rgba(255,255,255,.55);
+    --text-bright: #fff;
+    --green: #22c55e;
+    --amber: #f59e0b;
+    --blue: #3b82f6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #000;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── Slide Container ── */
+  .slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px clamp(24px, 5vw, 80px);
+    position: relative;
+    overflow: hidden;
+  }
+  .slide::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 5%;
+    right: 5%;
+    height: 1px;
+    background: var(--border);
+  }
+  .slide:last-child::after { display: none; }
+
+  /* ── Eyebrow ── */
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+
+  /* ── Typography ── */
+  h1 {
+    font-size: clamp(36px, 7vw, 64px);
+    font-weight: 900;
+    line-height: .92;
+    letter-spacing: -2px;
+    margin-bottom: 24px;
+  }
+  h1 span { color: var(--red); }
+  h2 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 900;
+    line-height: .95;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+  h2 span { color: var(--red); }
+  h3 {
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  p, li {
+    font-size: clamp(14px, 1.8vw, 16px);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ── KPI Grid ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 32px 0;
+  }
+  .kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: border-color .3s;
+  }
+  .kpi:hover { border-color: rgba(255,255,255,.15); }
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 900;
+    color: var(--text-bright);
+  }
+  .kpi-change {
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .kpi-change.down { color: #ef4444; }
+  .kpi-change.up { color: var(--green); }
+  .kpi-change.neutral { color: var(--text-dim); }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    transition: border-color .3s, transform .3s;
+  }
+  .card:hover { border-color: rgba(255,255,255,.15); transform: translateY(-2px); }
+  .card.critical { border-left: 3px solid #ef4444; }
+  .card.warning { border-left: 3px solid var(--amber); }
+  .card.good { border-left: 3px solid var(--green); }
+  .card.info { border-left: 3px solid var(--blue); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .badge.red { background: rgba(239,68,68,.15); color: #ef4444; border: 1px solid rgba(239,68,68,.3); }
+  .badge.amber { background: rgba(245,158,11,.15); color: var(--amber); border: 1px solid rgba(245,158,11,.3); }
+  .badge.green { background: rgba(34,197,94,.15); color: var(--green); border: 1px solid rgba(34,197,94,.3); }
+  .badge.blue { background: rgba(59,130,246,.15); color: var(--blue); border: 1px solid rgba(59,130,246,.3); }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    border-bottom: 1px solid rgba(200,16,46,.3);
+  }
+  tbody td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  tbody tr:hover { background: rgba(255,255,255,.02); }
+
+  /* ── Pill Buttons ── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50px;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 4px;
+  }
+  .pill.active { border-color: var(--red); color: #fff; background: rgba(200,16,46,.08); }
+
+  /* ── Keyword Structure Card ── */
+  .kw-struct {
+    background: rgba(200,16,46,.04);
+    border: 1px solid rgba(200,16,46,.15);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 12px 0;
+  }
+  .kw-struct h4 {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-bright);
+  }
+  .kw-row {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 8px;
+    margin: 6px 0;
+    align-items: baseline;
+  }
+  .kw-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .kw-value {
+    font-size: 14px;
+    color: var(--text);
+  }
+  .kw-value strong { color: var(--text-bright); }
+
+  /* ── Navigation dots ── */
+  .nav-dots {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.2);
+    cursor: pointer;
+    transition: all .3s;
+  }
+  .nav-dot:hover { background: var(--red); transform: scale(1.3); }
+  .nav-dot.active { background: var(--red); }
+
+  /* ── Slide number ── */
+  .slide-num {
+    position: absolute;
+    bottom: 24px;
+    right: clamp(24px, 5vw, 80px);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,.2);
+  }
+
+  /* ── Subline ── */
+  .subline {
+    font-size: clamp(15px, 2vw, 17px);
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 20px;
+  }
+
+  /* ── List styles ── */
+  ul { list-style: none; padding: 0; }
+  ul.check li {
+    padding: 6px 0 6px 28px;
+    position: relative;
+  }
+  ul.check li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border);
+  }
+
+  /* ── Glow accent ── */
+  .glow-accent {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,16,46,.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 16px 0;
+  }
+  @media (max-width: 768px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  /* Print styles */
+  @media print {
+    .slide { min-height: auto; page-break-after: always; padding: 40px; }
+    html { scroll-snap-type: none; }
+    .nav-dots { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ SLIDE 1: TITLE ═══════════════════ -->
+<div class="slide" id="s1">
+  <div class="glow-accent" style="top:-100px;right:-100px;"></div>
+  <div class="eyebrow">Google Ads Strategy & Action Plan</div>
+  <h1>Modern Mattress<br><span>Ad Performance Audit</span></h1>
+  <p class="subline">Account analysis, keyword structure, live site audit, and new website campaign launch plan for the team.</p>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+    <span class="pill">Account ID: 773-915-685</span>
+    <span class="pill">Data: March 2026</span>
+    <span class="pill">6 SK Locations</span>
+    <span class="pill active">New Website Launch</span>
+    <span class="pill">Live Site Audit: modernmattress.ca</span>
+  </div>
+  <div class="slide-num">01 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 2: 2025 vs 2026 COMPARISON ═══════════════════ -->
+<div class="slide" id="s2">
+  <div class="glow-accent" style="top:-100px;left:-150px;"></div>
+  <div class="eyebrow">Year-Over-Year Performance</div>
+  <h2>2025 Full Year vs <span>2026 So Far</span></h2>
+  <p class="subline">Where we were, where we are, and what changed. Full 2025 data compared to March 2026 monthly run rate.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>2025 Full Year</th>
+        <th>2025 Monthly Avg</th>
+        <th>March 2026</th>
+        <th>Trend</th>
+        <th>What It Means</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Total Spend</td>
+        <td>CA$256,684</td>
+        <td>CA$21,390/mo</td>
+        <td style="color:#fff;font-weight:700;">CA$24,100</td>
+        <td><span class="badge amber">&uarr; 13%</span></td>
+        <td>Spending more per month than last year</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Impressions</td>
+        <td>48.25M</td>
+        <td>4.02M/mo</td>
+        <td style="color:#fff;font-weight:700;">2.22M</td>
+        <td><span class="badge red">&darr; 45%</span></td>
+        <td>Reach has nearly halved despite higher spend</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Clicks</td>
+        <td>690,094</td>
+        <td>57,508/mo</td>
+        <td style="color:#fff;font-weight:700;">18,800</td>
+        <td><span class="badge red">&darr; 67%</span></td>
+        <td>Dramatically fewer people clicking our ads</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Cost Per Click</td>
+        <td>&mdash;</td>
+        <td>CA$0.37</td>
+        <td style="color:#fff;font-weight:700;">CA$1.29</td>
+        <td><span class="badge red">&uarr; 249%</span></td>
+        <td>Each click costs 3.5x more than last year</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">CTR</td>
+        <td>&mdash;</td>
+        <td>1.43%</td>
+        <td style="color:#fff;font-weight:700;">~0.85%</td>
+        <td><span class="badge red">&darr; 41%</span></td>
+        <td>Ads are less compelling or less relevant</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Conversions</td>
+        <td>455,934</td>
+        <td>37,995/mo</td>
+        <td style="color:#fff;font-weight:700;">8,998</td>
+        <td><span class="badge red">&darr; 76%</span></td>
+        <td style="color:var(--red);font-weight:700;">Tracking is broken &mdash; not a real decline</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Conv. Value</td>
+        <td>CA$19,181</td>
+        <td>CA$1,598/mo</td>
+        <td style="color:#fff;font-weight:700;">CA$958</td>
+        <td><span class="badge red">&darr; 40%</span></td>
+        <td>Revenue attribution is broken too</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two-col" style="margin-top:16px;">
+    <div class="card critical">
+      <h3>The Big Picture</h3>
+      <p>We're spending <strong style="color:#fff;">13% more per month</strong> but getting <strong style="color:var(--red);">67% fewer clicks</strong> at <strong style="color:var(--red);">3.5x the cost per click</strong>. The conversion tracking collapse masks whether we're actually getting ROI. Without tracking, Smart Bidding is flying blind.</p>
+    </div>
+    <div class="card good">
+      <h3>The Good News</h3>
+      <p>2025 proved the model works &mdash; <strong style="color:#fff;">690K clicks and 48M impressions</strong> at only $0.37/click is exceptional. The infrastructure is there. We just need to fix tracking, optimize campaigns, and launch the new site with proper pages.</p>
+    </div>
+  </div>
+  <div class="slide-num">02 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 3: CURRENT PERFORMANCE ═══════════════════ -->
+<div class="slide" id="s3">
+  <div class="eyebrow">Where We Are Now</div>
+  <h2>March 2026 <span>Performance</span></h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Total Clicks</div>
+      <div class="kpi-value">18.8K</div>
+      <div class="kpi-change neutral">Stable</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Impressions</div>
+      <div class="kpi-value">2.22M</div>
+      <div class="kpi-change down">-45% from prior</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg. CPC</div>
+      <div class="kpi-value">$1.29</div>
+      <div class="kpi-change up">Well below industry $5-50</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Monthly Spend</div>
+      <div class="kpi-value">$24.1K</div>
+      <div class="kpi-change neutral">+$1,345 from prior</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Conversions</div>
+      <div class="kpi-value">8,998</div>
+      <div class="kpi-change down">-88% &mdash; TRACKING BROKEN</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Opt. Score</div>
+      <div class="kpi-value">63.8%</div>
+      <div class="kpi-change down">Target: 80%+</div>
+    </div>
+  </div>
+  <div class="slide-num">03 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 3: WHAT'S BROKEN ═══════════════════ -->
+<div class="slide" id="s3">
+  <div class="eyebrow">Critical Issues</div>
+  <h2>What's <span>Broken</span></h2>
+  <div class="card-grid">
+    <div class="card critical">
+      <span class="badge red">Critical</span>
+      <h3 style="margin-top:12px;">Payment Method Failure</h3>
+      <p>The billing warning has been active for over a month. All ads could stop at any moment. The Visa on file cannot be charged.</p>
+      <p style="color:var(--red);font-weight:700;margin-top:8px;">Fix today &mdash; before anything else.</p>
+    </div>
+    <div class="card critical">
+      <span class="badge red">Critical</span>
+      <h3 style="margin-top:12px;">Conversion Tracking Collapsed</h3>
+      <p>Conversions dropped 88%. Smart Bidding is flying blind. We cannot measure ROI on our $24K/month spend. Fresh tracking must be installed on the new site.</p>
+    </div>
+    <div class="card warning">
+      <span class="badge amber">High</span>
+      <h3 style="margin-top:12px;">5 Campaigns Budget-Limited</h3>
+      <p>Yorkton and Moose Jaw Pillows campaigns are getting near-zero impressions. Budget fragmentation is killing smaller market reach.</p>
+    </div>
+    <div class="card warning">
+      <span class="badge amber">High</span>
+      <h3 style="margin-top:12px;">Brand Campaign at 40.2%</h3>
+      <p>Our brand defense campaign has the lowest optimization score. Competitors like Endy (+12% search interest) are gaining ground on our branded terms.</p>
+    </div>
+  </div>
+  <div class="slide-num">04 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 4: WHAT'S WORKING ═══════════════════ -->
+<div class="slide" id="s4">
+  <div class="eyebrow">Strengths to Build On</div>
+  <h2>What's <span>Working</span></h2>
+  <div class="card-grid">
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">Search Campaign CTRs</h3>
+      <p>Saskatoon Store at 12.16% and Rochdale at 11.36% CTR &mdash; far above the 1.5-3% industry average. Local intent searches are our strongest performer.</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">CPC Advantage</h3>
+      <p>$1.29 avg CPC in a vertical where competitors pay $5-50. Our blended cost per click gives us massive reach efficiency.</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">New Pillows Campaigns</h3>
+      <p>8 new Pillows campaigns launched since last audit. Saskatoon Pillows Style/Type showing 92.75% conversion rate at only $260/month.</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">PMax Reach</h3>
+      <p>4 location-based PMax campaigns driving 2.17M impressions combined. Regina PMax getting clicks at $0.37 each &mdash; exceptional for awareness.</p>
+    </div>
+  </div>
+  <div class="slide-num">05 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 5: KEYWORD STRUCTURE ═══════════════════ -->
+<div class="slide" id="s5">
+  <div class="eyebrow">Keyword Strategy</div>
+  <h2>Current Keyword <span>Structure</span></h2>
+  <p class="subline">Our 797 keywords fall into these core groups. Here's what's performing and where the gaps are.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Keyword Theme</th>
+        <th>Status</th>
+        <th>CTR</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#fff;font-weight:700;">"modern mattress" + location</td>
+        <td><span class="badge green">Active</span></td>
+        <td>28.79%</td>
+        <td>Protect &mdash; increase brand defense</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">"mattress store" + location</td>
+        <td><span class="badge green">Active</span></td>
+        <td>12.16%</td>
+        <td>Core keyword &mdash; maximize spend</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress size & type + location</td>
+        <td><span class="badge green">Active</span></td>
+        <td>7-8%</td>
+        <td>Expand with new website collection pages</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress sale / price terms</td>
+        <td><span class="badge green">Active</span></td>
+        <td>5.83%</td>
+        <td>Link to new sale landing page</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Pillows style / type / size</td>
+        <td><span class="badge blue">New</span></td>
+        <td>~3%</td>
+        <td>Scale Saskatoon success to other locations</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Adjustable bed frame / base</td>
+        <td><span class="badge blue">New</span></td>
+        <td>Low vol</td>
+        <td>Needs dedicated landing page on new site</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">"sleep country regina" (competitor)</td>
+        <td><span class="badge amber">Review</span></td>
+        <td>6.32%</td>
+        <td>$963/mo &mdash; cut if no ROI after tracking fixed</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">"mattress topper" / "air mattress"</td>
+        <td><span class="badge red">Not bidding</span></td>
+        <td>&mdash;</td>
+        <td>Add as negative keywords (see slide 6)</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-num">06 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 6: MATTRESS TOPPER / AIR MATTRESS ═══════════════════ -->
+<div class="slide" id="s6">
+  <div class="eyebrow">Staff Concern</div>
+  <h2>Are We Showing for <span>"Mattress Toppers"</span> &amp; <span>"Air Mattresses"</span>?</h2>
+  <div class="two-col">
+    <div>
+      <div class="card info" style="margin-bottom:16px;">
+        <h3>What We Found</h3>
+        <p>We are <strong style="color:#fff;">NOT directly bidding</strong> on "mattress topper" or "air mattress" keywords. These terms are not in any of our 797 active keywords.</p>
+        <p style="margin-top:8px;">However, our <strong style="color:var(--amber);">Performance Max campaigns</strong> and <strong style="color:var(--amber);">broad match keywords</strong> can trigger ads on related searches that Google's algorithm considers relevant. When someone searches "mattress topper saskatoon," Google may show our PMax ad because it contains the word "mattress."</p>
+      </div>
+      <div class="card critical">
+        <h3>Why This Matters</h3>
+        <p>Staff are seeing customers come in expecting products we don't carry. This wastes ad spend and creates a poor customer experience. We're paying for clicks from people who want mattress toppers or air mattresses &mdash; products we don't sell.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card good">
+        <h3>Immediate Fix: Add Negative Keywords</h3>
+        <p style="margin-bottom:12px;">Add these as <strong style="color:#fff;">account-level negative keywords</strong> today:</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span class="pill active">mattress topper</span>
+          <span class="pill active">air mattress</span>
+          <span class="pill active">inflatable mattress</span>
+          <span class="pill active">mattress pad</span>
+          <span class="pill active">camping mattress</span>
+          <span class="pill active">air bed</span>
+          <span class="pill active">crib mattress</span>
+          <span class="pill active">futon</span>
+          <span class="pill active">mattress cover</span>
+          <span class="pill active">used mattress</span>
+          <span class="pill active">second hand</span>
+          <span class="pill active">mattress recycling</span>
+          <span class="pill active">mattress disposal</span>
+          <span class="pill active">free mattress</span>
+        </div>
+        <p style="margin-top:12px;font-weight:700;color:var(--green);">This blocks these searches across ALL campaigns instantly.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">07 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 7: HEADLINES & DESCRIPTIONS ═══════════════════ -->
+<div class="slide" id="s7">
+  <div class="eyebrow">Ad Copy Strategy</div>
+  <h2>Headlines &amp; <span>Descriptions</span></h2>
+  <p class="subline">Every Search campaign needs 15 headlines and 4 descriptions. Here's the structure for the new website launch.</p>
+
+  <div class="kw-struct">
+    <h4>Brand Campaign &mdash; "Modern Mattress"</h4>
+    <div class="kw-row"><span class="kw-label">Headlines</span><span class="kw-value"><strong>Modern Mattress Saskatchewan</strong> | <strong>6 Locations Across SK</strong> | <strong>100-Night Sleep Guarantee</strong> | <strong>Try Before You Buy In-Store</strong> | <strong>Free Local Delivery</strong> | <strong>Saskatchewan's Mattress Experts</strong> | <strong>Shop modernmattress.ca</strong> | <strong>New Website &mdash; Shop Online</strong></span></div>
+    <div class="kw-row"><span class="kw-label">Descriptions</span><span class="kw-value">Saskatchewan's trusted mattress store with 6 locations. Try any mattress in-store, enjoy free local delivery, and sleep worry-free with our 100-Night Guarantee. | Visit our new website at modernmattress.ca. Browse 8 exclusive collections, compare mattresses by size and feel, and find your nearest store.</span></div>
+    <div class="kw-row"><span class="kw-label">Landing Page</span><span class="kw-value"><strong>modernmattress.ca/</strong> (homepage)</span></div>
+  </div>
+
+  <div class="kw-struct">
+    <h4>Mattress Store | Saskatoon</h4>
+    <div class="kw-row"><span class="kw-label">Headlines</span><span class="kw-value"><strong>Mattress Store in Saskatoon</strong> | <strong>Modern Mattress Saskatoon</strong> | <strong>Try Mattresses In-Store</strong> | <strong>Open Today &mdash; Visit Us</strong> | <strong>Free Delivery in Saskatoon</strong> | <strong>Saskatoon's Best Mattress Shop</strong> | <strong>100-Night Sleep Guarantee</strong> | <strong>8 Exclusive Collections</strong></span></div>
+    <div class="kw-row"><span class="kw-label">Descriptions</span><span class="kw-value">Visit Modern Mattress in Saskatoon. Try any mattress from our 8 exclusive collections in-store. Free local delivery and 100-Night Sleep Guarantee included. | Find your perfect mattress at our Saskatoon locations. Expert staff, competitive prices, and financing available. Open 7 days a week.</span></div>
+    <div class="kw-row"><span class="kw-label">Landing Page</span><span class="kw-value"><strong>modernmattress.ca/pages/locations</strong> (Saskatoon stores)</span></div>
+  </div>
+
+  <div class="kw-struct">
+    <h4>Mattress Sale / Price | Regina</h4>
+    <div class="kw-row"><span class="kw-label">Headlines</span><span class="kw-value"><strong>Mattress Sale in Regina</strong> | <strong>Save Up to $X Off</strong> | <strong>Regina Mattress Deals</strong> | <strong>Financing from $X/mo</strong> | <strong>Limited Time Offer</strong> | <strong>Best Mattress Prices in SK</strong> | <strong>Rochdale Outlet Deals</strong> | <strong>Free Delivery + Guarantee</strong></span></div>
+    <div class="kw-row"><span class="kw-label">Descriptions</span><span class="kw-value">Shop mattress deals at Modern Mattress Regina. Prices starting from $X. Free local delivery, financing available, and backed by our 100-Night Sleep Guarantee. | Visit our Rochdale location for exclusive outlet pricing on premium mattresses. Try before you buy with expert guidance.</span></div>
+    <div class="kw-row"><span class="kw-label">Landing Page</span><span class="kw-value"><strong>modernmattress.ca/pages/sale</strong> (sale landing)</span></div>
+  </div>
+  <div class="slide-num">08 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 8: MORE HEADLINES & DESCRIPTIONS ═══════════════════ -->
+<div class="slide" id="s8">
+  <div class="eyebrow">Ad Copy Strategy (Continued)</div>
+  <h2>Product Campaign <span>Copy</span></h2>
+
+  <div class="kw-struct">
+    <h4>Mattresses &mdash; Size & Type (All Locations)</h4>
+    <div class="kw-row"><span class="kw-label">Keywords</span><span class="kw-value">king mattress saskatoon, queen mattress regina, twin mattress, king size bed, california king, memory foam mattress, hybrid mattress, firm mattress, pillow top mattress</span></div>
+    <div class="kw-row"><span class="kw-label">Headlines</span><span class="kw-value"><strong>King Mattress from $X</strong> | <strong>Queen Mattresses In Stock</strong> | <strong>Find Your Perfect Size</strong> | <strong>Memory Foam &amp; Hybrid Options</strong> | <strong>Compare All Sizes In-Store</strong> | <strong>Free Delivery on All Sizes</strong> | <strong>8 Collections to Choose From</strong> | <strong>Twin to California King</strong></span></div>
+    <div class="kw-row"><span class="kw-label">Descriptions</span><span class="kw-value">Shop king, queen, and twin mattresses at Modern Mattress. 8 exclusive collections from plush to extra firm. Try in-store, enjoy free delivery and 100-Night Guarantee. | Find the right size and feel. Compare our Classic, Signature, Aria, Prestige, Natural, Hybrid Luxe, Modern, and Artisan collections.</span></div>
+    <div class="kw-row"><span class="kw-label">Landing Pages</span><span class="kw-value"><strong>modernmattress.ca/pages/all-mattresses</strong> | Collection pages: /classic, /signature, /aria, /prestige, /natural, /hybrid-luxe, /modern, /artisan</span></div>
+  </div>
+
+  <div class="kw-struct">
+    <h4>Pillows (Style/Type &amp; Size)</h4>
+    <div class="kw-row"><span class="kw-label">Keywords</span><span class="kw-value">foam pillow, cooling pillow, gel pillow, memory foam pillow, pillows that stay cool, adjustable pillow, shoulder pillow, king size pillow, queen pillow</span></div>
+    <div class="kw-row"><span class="kw-label">Headlines</span><span class="kw-value"><strong>Premium Pillows In-Store</strong> | <strong>Cooling Pillows from $X</strong> | <strong>Memory Foam &amp; Gel Pillows</strong> | <strong>Find Your Perfect Pillow</strong> | <strong>Try Pillows Before You Buy</strong> | <strong>Bundle &amp; Save with Mattress</strong></span></div>
+    <div class="kw-row"><span class="kw-label">Descriptions</span><span class="kw-value">Shop premium pillows at Modern Mattress. Cooling gel, memory foam, and adjustable options. Try them in-store at any of our 6 Saskatchewan locations. | Complete your sleep setup. Bundle a pillow with any mattress purchase and save. Visit modernmattress.ca or your nearest store.</span></div>
+    <div class="kw-row"><span class="kw-label">Landing Page</span><span class="kw-value"><strong>modernmattress.ca/pages/pillows</strong></span></div>
+  </div>
+
+  <div class="kw-struct">
+    <h4>Adjustable Bases &amp; Bed Frames</h4>
+    <div class="kw-row"><span class="kw-label">Keywords</span><span class="kw-value">adjustable bed frame, adjustable base, adjustable bed saskatoon, split king adjustable, bed frame regina</span></div>
+    <div class="kw-row"><span class="kw-label">Headlines</span><span class="kw-value"><strong>Adjustable Bases from $X</strong> | <strong>Split King Adjustable Beds</strong> | <strong>Zero Gravity Sleep Position</strong> | <strong>Pair with Any Mattress</strong> | <strong>Try Adjustable In-Store</strong> | <strong>Free Delivery &amp; Setup</strong></span></div>
+    <div class="kw-row"><span class="kw-label">Descriptions</span><span class="kw-value">Upgrade to an adjustable base at Modern Mattress. Zero gravity, anti-snore, and reading positions. Compatible with all our mattress collections. Try in-store. | Split king adjustable bases for couples. Each side moves independently. Free delivery and setup at your home.</span></div>
+    <div class="kw-row"><span class="kw-label">Landing Pages</span><span class="kw-value"><strong>modernmattress.ca/pages/adjustable-bases</strong> | <strong>modernmattress.ca/pages/split-king</strong></span></div>
+  </div>
+  <div class="slide-num">09 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 9: LIVE SITE AUDIT — WHAT'S WORKING ═══════════════════ -->
+<div class="slide" id="s9">
+  <div class="glow-accent" style="top:-150px;left:-100px;"></div>
+  <div class="eyebrow">Live Site Audit &mdash; modernmattress.ca</div>
+  <h2>Current Site: <span>What's Working</span></h2>
+  <p class="subline">We audited the live site at modernmattress.ca to see what's already in place for campaigns. Here's what's strong.</p>
+
+  <div class="card-grid">
+    <div class="card good">
+      <span class="badge green">Excellent</span>
+      <h3 style="margin-top:12px;">Homepage is Campaign-Ready</h3>
+      <p>Strong hero with clear CTAs ("Find Your Store" + "Take the Quiz"). Reviews section (1,754 Google reviews, 4.9 stars), 8 collection showcase with pricing, FAQ section, and 6-location footer. GTM + Google Analytics installed.</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Excellent</span>
+      <h3 style="margin-top:12px;">All 30+ Landing Pages Exist</h3>
+      <p>Every campaign landing page returns 200 OK. All 8 collection pages, sale page, pillows, adjustable bases, split king, RV mattress, financing, delivery, warranty, reviews, contact, FAQ &mdash; all live and working.</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">City-Specific Store Pages</h3>
+      <p>Dedicated pages exist for each city: <strong style="color:#fff;">/mattress-store-saskatoon</strong>, <strong style="color:#fff;">/mattress-store-regina</strong>, <strong style="color:#fff;">/mattress-store-moose-jaw</strong>, <strong style="color:#fff;">/mattress-store-yorkton</strong>. SEO-optimized titles like "Best Mattress Store in Saskatoon."</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">Schema & Technical SEO</h3>
+      <p><strong style="color:#fff;">FurnitureStore</strong> + <strong style="color:#fff;">FAQPage</strong> structured data on homepage. Meta description targeting Saskatchewan. GTM container installed. Phone number with click-to-call (306-700-7999).</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">12 Sleep Guide Pages</h3>
+      <p>Back pain, side sleeper, back sleeper, sleeping hot, couples, snoring, pressure relief, acid reflux, sleep apnea, restless legs, pregnancy &mdash; all linked from homepage "Sound like you?" section. Great for content-based campaigns.</p>
+    </div>
+    <div class="card good">
+      <span class="badge green">Strong</span>
+      <h3 style="margin-top:12px;">Sale Landing Page</h3>
+      <p>Title: "Mattress Sale Saskatchewan." Live with current promo (Save up to $500), financing messaging, review count, stats section, and collection showcase. Perfect target for sale/price campaigns.</p>
+    </div>
+  </div>
+  <div class="slide-num">10 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 10: LIVE SITE AUDIT — GAPS ═══════════════════ -->
+<div class="slide" id="s10">
+  <div class="eyebrow">Live Site Audit &mdash; What's Missing</div>
+  <h2>Current Site: <span>Gaps to Fix</span></h2>
+  <p class="subline">These are the issues we found that will hurt campaign performance if not addressed before the new site launches.</p>
+
+  <div class="card-grid">
+    <div class="card critical">
+      <span class="badge red">Critical Gap</span>
+      <h3 style="margin-top:12px;">No Individual Store Pages</h3>
+      <p>All 6 location links in the footer point to the same <strong style="color:#fff;">/pages/locations-landing</strong> page. Saskatoon North, Saskatoon Rosewood, Regina POW, Regina Rochdale, Moose Jaw, Yorkton &mdash; none have their own URL.</p>
+      <p style="margin-top:8px;color:var(--red);font-weight:700;">Why it matters: Google Ads location campaigns need unique landing pages per store for Quality Score and local relevance.</p>
+    </div>
+    <div class="card critical">
+      <span class="badge red">Critical Gap</span>
+      <h3 style="margin-top:12px;">No Size-Specific Landing Pages</h3>
+      <p>No pages for <strong style="color:#fff;">/king-mattress</strong>, <strong style="color:#fff;">/queen-mattress</strong>, or <strong style="color:#fff;">/twin-mattress</strong>. Size keywords are trending +14% and we're bidding on them &mdash; but they all land on the generic all-mattresses page.</p>
+      <p style="margin-top:8px;color:var(--red);font-weight:700;">New site needs: dedicated size pages that filter collections by size availability.</p>
+    </div>
+    <div class="card warning">
+      <span class="badge amber">High Gap</span>
+      <h3 style="margin-top:12px;">No Rochdale Outlet Page</h3>
+      <p>The Rochdale outlet location is mentioned in ad copy but <strong style="color:#fff;">/pages/rochdale-outlet</strong> returns 404. Campaign references an outlet experience that doesn't exist online.</p>
+    </div>
+    <div class="card warning">
+      <span class="badge amber">High Gap</span>
+      <h3 style="margin-top:12px;">No Comparison / Why Us Page</h3>
+      <p><strong style="color:#fff;">/compare-mattresses</strong> and <strong style="color:#fff;">/why-modern-mattress</strong> don't exist. Competitor campaigns (Sleep Country) need a landing page that clearly differentiates us. The homepage touches on it but doesn't give it enough space.</p>
+    </div>
+    <div class="card warning">
+      <span class="badge amber">High Gap</span>
+      <h3 style="margin-top:12px;">Locations Page Has No Google Maps Embed</h3>
+      <p>The locations page lists all 6 stores with addresses and phone numbers, but uses simple Google Maps text links. Interactive map embeds would improve user experience and increase "Get Directions" conversion rate.</p>
+    </div>
+    <div class="card info">
+      <span class="badge blue">Nice to Have</span>
+      <h3 style="margin-top:12px;">No Discovery Experience Page</h3>
+      <p>The in-store Discovery process (pressure mapping) is Modern Mattress's biggest differentiator. A dedicated <strong style="color:#fff;">/discovery-experience</strong> page would serve brand campaigns and give PMax better content to work with.</p>
+    </div>
+  </div>
+  <div class="slide-num">11 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 11: CAMPAIGN → PAGE CONNECTION MAP ═══════════════════ -->
+<div class="slide" id="s11">
+  <div class="eyebrow">Campaign &rarr; Landing Page Mapping</div>
+  <h2>Every Campaign Needs <span>Its Page</span></h2>
+  <p class="subline">This is the exact URL each of our 17 active campaigns should point to. Green = page exists. Red = needs to be created.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Campaign</th>
+        <th>Landing Page URL</th>
+        <th>Status</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Brand Campaign</td>
+        <td>/</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Homepage &mdash; strong, campaign-ready</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress Store | Saskatoon</td>
+        <td>/pages/mattress-store-saskatoon</td>
+        <td><span class="badge green">Live</span></td>
+        <td>SEO title optimized. Both locations listed.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress Store | Regina</td>
+        <td>/pages/mattress-store-regina</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Both Regina locations listed.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress Store | Yorkton</td>
+        <td>/pages/mattress-store-yorkton</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Single location page.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress Store | Moose Jaw</td>
+        <td>/pages/mattress-store-moose-jaw</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Single location page.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Search | Rochdale | Regina</td>
+        <td>/pages/regina-rochdale</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Dedicated Rochdale page exists.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Size &amp; Type | Saskatoon</td>
+        <td>/pages/all-mattresses-landing</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Needs size filter. Consider size-specific pages.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Size &amp; Type | Regina</td>
+        <td>/pages/all-mattresses-landing</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Same &mdash; add size-specific pages for better QS.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Mattress Sale/Price (all)</td>
+        <td>/pages/sale-landing</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Strong sale page with pricing + financing.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">4x PMax Campaigns</td>
+        <td>/ (auto-selected by Google)</td>
+        <td><span class="badge green">Live</span></td>
+        <td>PMax chooses pages. All assets exist.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Pillows (8 campaigns)</td>
+        <td>/pages/pillows-landing</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Page exists. Consolidate 8 campaigns &rarr; 2.</td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">RV Mattress</td>
+        <td>/pages/rv-mattress-landing</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Dedicated RV page exists.</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.05);">
+        <td style="color:#fff;font-weight:700;">NEW: King Mattress</td>
+        <td>/pages/king-mattress</td>
+        <td><span class="badge red">Create</span></td>
+        <td>High-volume keyword. Needs dedicated page.</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.05);">
+        <td style="color:#fff;font-weight:700;">NEW: Queen Mattress</td>
+        <td>/pages/queen-mattress</td>
+        <td><span class="badge red">Create</span></td>
+        <td>Most popular size search. Needs its own page.</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.05);">
+        <td style="color:#fff;font-weight:700;">NEW: Adjustable Bases</td>
+        <td>/pages/adjustable-bases-landing</td>
+        <td><span class="badge green">Live</span></td>
+        <td>Page exists. Create dedicated campaign.</td>
+      </tr>
+      <tr style="background:rgba(239,68,68,.05);">
+        <td style="color:#fff;font-weight:700;">NEW: Sleep Solutions</td>
+        <td>/pages/sleep-guide-back-pain (etc.)</td>
+        <td><span class="badge green">Live</span></td>
+        <td>12 guide pages exist. Create content campaigns.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-num">12 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 12: NEW PAGES TO BUILD ═══════════════════ -->
+<div class="slide" id="s12">
+  <div class="eyebrow">New Site Build List</div>
+  <h2>Pages to <span>Create</span> for New Site</h2>
+  <p class="subline">These pages don't exist on the current site but are needed for campaign performance. Build them before launch.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="card critical" style="margin-bottom:16px;">
+        <span class="badge red">Must Build &mdash; Launch Blockers</span>
+        <h3 style="margin-top:10px;">Size-Specific Landing Pages</h3>
+        <table style="font-size:13px;">
+          <tbody>
+            <tr><td style="color:#fff;">/pages/king-mattress</td><td>King mattress keyword campaigns</td></tr>
+            <tr><td style="color:#fff;">/pages/queen-mattress</td><td>Queen mattress keyword campaigns</td></tr>
+            <tr><td style="color:#fff;">/pages/twin-mattress</td><td>Twin/single mattress campaigns</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;font-size:13px;"><strong style="color:#fff;">What they need:</strong> Filtered view of collections available in that size, price ranges, comparison chart, "Try in-store" CTA, and link to the Sleep Quiz.</p>
+      </div>
+
+      <div class="card warning" style="margin-bottom:16px;">
+        <span class="badge amber">Should Build &mdash; Week 1</span>
+        <h3 style="margin-top:10px;">Individual Store Pages</h3>
+        <table style="font-size:13px;">
+          <tbody>
+            <tr><td style="color:#fff;">/pages/saskatoon-north</td><td>Location-specific ads</td></tr>
+            <tr><td style="color:#fff;">/pages/saskatoon-rosewood</td><td>Location-specific ads</td></tr>
+            <tr><td style="color:#fff;">/pages/regina-pow</td><td>Location-specific ads</td></tr>
+            <tr><td style="color:#fff;">/pages/regina-rochdale</td><td>Already exists!</td></tr>
+            <tr><td style="color:#fff;">/pages/moose-jaw-store</td><td>Location-specific ads</td></tr>
+            <tr><td style="color:#fff;">/pages/yorkton-store</td><td>Location-specific ads</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;font-size:13px;"><strong style="color:#fff;">What they need:</strong> Store photos, Google Map embed, staff names, hours, phone, driving directions, nearby neighbourhood mentions for local SEO, and Google reviews specific to that location.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card info" style="margin-bottom:16px;">
+        <span class="badge blue">Should Build &mdash; Week 2</span>
+        <h3 style="margin-top:10px;">Competitive & Value Pages</h3>
+        <table style="font-size:13px;">
+          <tbody>
+            <tr><td style="color:#fff;">/pages/why-modern-mattress</td><td>Competitor campaign landing</td></tr>
+            <tr><td style="color:#fff;">/pages/compare-mattresses</td><td>Size &amp; Type campaign support</td></tr>
+            <tr><td style="color:#fff;">/pages/discovery-experience</td><td>Brand differentiation</td></tr>
+            <tr><td style="color:#fff;">/pages/rochdale-outlet</td><td>Outlet-specific deal campaigns</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;font-size:13px;"><strong style="color:#fff;">Why "Why Modern Mattress" matters:</strong> When someone searches "Sleep Country Regina" and clicks our ad, they need to land on a page that explains why we're the better choice &mdash; not just our homepage.</p>
+      </div>
+
+      <div class="card" style="background:rgba(200,16,46,.06);border-color:rgba(200,16,46,.2);">
+        <h3>Page Build Summary</h3>
+        <table style="font-size:14px;">
+          <tbody>
+            <tr>
+              <td style="color:var(--green);font-weight:700;">Already Live</td>
+              <td style="color:#fff;font-weight:700;">34 pages</td>
+              <td>All collections, accessories, guides, support</td>
+            </tr>
+            <tr>
+              <td style="color:var(--red);font-weight:700;">Must Create</td>
+              <td style="color:#fff;font-weight:700;">3 pages</td>
+              <td>King, Queen, Twin size pages</td>
+            </tr>
+            <tr>
+              <td style="color:var(--amber);font-weight:700;">Should Create</td>
+              <td style="color:#fff;font-weight:700;">5 pages</td>
+              <td>Individual store pages (1 already exists)</td>
+            </tr>
+            <tr>
+              <td style="color:var(--blue);font-weight:700;">Nice to Have</td>
+              <td style="color:#fff;font-weight:700;">4 pages</td>
+              <td>Why us, compare, discovery, outlet</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top:12px;font-size:14px;color:var(--green);font-weight:700;">Good news: The current site is 85% ready. Only 12 new pages needed total.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">13 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 13: NEW WEBSITE PAGES TO OPTIMIZE ═══════════════════ -->
+<div class="slide" id="s13">
+  <div class="eyebrow">Website + Ads Alignment</div>
+  <h2>New Website Pages <span>to Optimize</span></h2>
+  <p class="subline">Every campaign needs a dedicated landing page on modernmattress.ca. Here's what must be ready at launch.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>Campaign It Serves</th>
+        <th>Must Include</th>
+        <th>Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Homepage</td>
+        <td>Brand Campaign + PMax</td>
+        <td>Brand story, store locations CTA, current promo, 100-Night badge</td>
+        <td><span class="badge red">P0</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Locations Page</td>
+        <td>Mattress Store campaigns (all)</td>
+        <td>6 stores with maps, hours, click-to-call, local photos</td>
+        <td><span class="badge red">P0</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Sale / Deals Page</td>
+        <td>Mattress Sale/Price campaigns</td>
+        <td>Current pricing, comparison tables, financing calculator, urgency</td>
+        <td><span class="badge red">P0</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">All Mattresses Landing</td>
+        <td>Size & Type campaigns</td>
+        <td>Filter by size/type/feel, all 8 collections, price ranges</td>
+        <td><span class="badge red">P0</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">8 Collection Pages</td>
+        <td>Size & Type + PMax</td>
+        <td>Classic, Signature, Aria, Prestige, Natural, Hybrid Luxe, Modern, Artisan</td>
+        <td><span class="badge amber">P1</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Pillows Landing</td>
+        <td>Pillows campaigns</td>
+        <td>Categories by type/style, size guide, bundle offers</td>
+        <td><span class="badge amber">P1</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Adjustable Bases Page</td>
+        <td>Bed Frame campaigns</td>
+        <td>Features, compatibility, split king option, financing</td>
+        <td><span class="badge amber">P1</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Split King Page</td>
+        <td>Split king campaigns</td>
+        <td>Couples benefits, independent movement, sleep system bundles</td>
+        <td><span class="badge amber">P1</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">RV Mattress Page</td>
+        <td>RV Mattress campaign</td>
+        <td>Custom sizes, RV-specific info, delivery options</td>
+        <td><span class="badge blue">P2</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Sleep Guides (12 pages)</td>
+        <td>Content / SEO support</td>
+        <td>Back pain, side sleeper, couples, snoring, etc.</td>
+        <td><span class="badge blue">P2</span></td>
+      </tr>
+      <tr>
+        <td style="color:#fff;font-weight:700;">Financing Page</td>
+        <td>Price/sale campaigns</td>
+        <td>Monthly payment calculator, approval process, terms</td>
+        <td><span class="badge blue">P2</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="slide-num">14 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 14: NEW CAMPAIGN LAUNCH STRUCTURE ═══════════════════ -->
+<div class="slide" id="s14">
+  <div class="eyebrow">New Campaign Launch</div>
+  <h2>Campaign Structure for <span>New Website</span></h2>
+  <p class="subline">Restructured campaign architecture aligned to modernmattress.ca pages and user intent.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="card good" style="margin-bottom:16px;">
+        <span class="badge green">Keep &amp; Optimize</span>
+        <h3 style="margin-top:10px;">Existing Winners</h3>
+        <table style="font-size:13px;">
+          <tbody>
+            <tr><td style="color:#fff;">Mattress Store | Saskatoon</td><td>12.16% CTR</td></tr>
+            <tr><td style="color:#fff;">Search | Rochdale | Regina</td><td>11.36% CTR</td></tr>
+            <tr><td style="color:#fff;">Size & Type | Saskatoon</td><td>7.7% CTR</td></tr>
+            <tr><td style="color:#fff;">Size & Type | Regina</td><td>7.9% CTR</td></tr>
+            <tr><td style="color:#fff;">4x PMax (all locations)</td><td>Awareness</td></tr>
+          </tbody>
+        </table>
+        <p style="margin-top:8px;font-size:13px;">Update all URLs to new website. Keep bidding strategies. Refresh ad copy to reference new site features.</p>
+      </div>
+
+      <div class="card info">
+        <span class="badge blue">New Campaigns</span>
+        <h3 style="margin-top:10px;">Launch with New Site</h3>
+        <table style="font-size:13px;">
+          <tbody>
+            <tr><td style="color:#fff;">Collections Campaign</td><td>8 collection landing pages</td></tr>
+            <tr><td style="color:#fff;">Size-Specific (King/Queen/Twin)</td><td>Trending +14%</td></tr>
+            <tr><td style="color:#fff;">Sleep Solutions</td><td>Sleep guide content pages</td></tr>
+            <tr><td style="color:#fff;">Adjustable Bases</td><td>Growing product category</td></tr>
+            <tr><td style="color:#fff;">Financing</td><td>Price-sensitive shoppers</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card warning" style="margin-bottom:16px;">
+        <span class="badge amber">Restructure</span>
+        <h3 style="margin-top:10px;">Consolidate These</h3>
+        <p>Merge 8 separate Pillows campaigns (4 Style/Type + 4 Size) into <strong style="color:#fff;">2 campaigns</strong>: one for Saskatoon/Regina (high volume), one for Yorkton/Moose Jaw (small markets).</p>
+        <p style="margin-top:8px;">Merge duplicate RV Mattress keyword instances into a single campaign.</p>
+      </div>
+
+      <div class="card critical">
+        <span class="badge red">Remove or Review</span>
+        <h3 style="margin-top:10px;">Cut the Waste</h3>
+        <p><strong style="color:#fff;">"sleep country regina"</strong> &mdash; $963/month on a competitor term with uncertain ROI. Pause after tracking is fixed; only reinstate if it drives actual store visits.</p>
+        <p style="margin-top:8px;"><strong style="color:#fff;">13 paused/dead campaigns</strong> &mdash; archive to clean up the account. Reduces clutter and Google Ads complexity.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;background:rgba(200,16,46,.06);border-color:rgba(200,16,46,.2);">
+        <h3>Budget Reallocation</h3>
+        <table style="font-size:13px;">
+          <tbody>
+            <tr><td style="color:#fff;">Brand Defense</td><td>2% &rarr; 8%</td><td>+$1,400/mo</td></tr>
+            <tr><td style="color:#fff;">High-Intent Search</td><td>35% &rarr; 42%</td><td>Best ROI</td></tr>
+            <tr><td style="color:#fff;">PMax</td><td>36% &rarr; 28%</td><td>Reduce waste</td></tr>
+            <tr><td style="color:#fff;">Size-Specific (NEW)</td><td>0% &rarr; 12%</td><td>$2,900/mo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">15 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 15: LAUNCH WEEK TIMELINE ═══════════════════ -->
+<div class="slide" id="s15">
+  <div class="eyebrow">Execution Plan</div>
+  <h2>Website Launch <span>Week</span></h2>
+  <div class="two-col">
+    <div>
+      <div class="card" style="margin-bottom:16px;border-left:3px solid var(--red);">
+        <span class="badge red">Day 1 &mdash; Before Launch</span>
+        <ul class="check" style="margin-top:12px;">
+          <li>Fix payment method (Visa on file)</li>
+          <li>Install Google Tag Manager on new site</li>
+          <li>Configure conversion actions (calls, forms, directions)</li>
+          <li>Set up Enhanced Conversions</li>
+          <li>Test page speed on mobile (&lt;3 sec)</li>
+          <li>Create old URL &rarr; new URL mapping</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;border-left:3px solid var(--amber);">
+        <span class="badge amber">Day 2 &mdash; Launch Day</span>
+        <ul class="check" style="margin-top:12px;">
+          <li>Deploy new modernmattress.ca</li>
+          <li>Update ALL ad final URLs (17 campaigns)</li>
+          <li>Update all sitelink extensions</li>
+          <li>Update callout + structured snippets</li>
+          <li>Verify GTM firing on live site</li>
+          <li>Test every conversion action</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px;border-left:3px solid var(--blue);">
+        <span class="badge blue">Days 3-4 &mdash; Verify</span>
+        <ul class="check" style="margin-top:12px;">
+          <li>Check for "Landing page not found" errors</li>
+          <li>Verify conversions recording (24-48hr delay)</li>
+          <li>Link all 6 Google Business Profiles</li>
+          <li>Enable location extensions</li>
+          <li>Archive 13 inactive campaigns</li>
+          <li>Add negative keyword list (toppers, air mattress, etc.)</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-left:3px solid var(--green);">
+        <span class="badge green">Days 5-7 &mdash; Optimize</span>
+        <ul class="check" style="margin-top:12px;">
+          <li>Launch size-specific keyword campaigns</li>
+          <li>Consolidate Pillows campaigns</li>
+          <li>Remove duplicate keywords</li>
+          <li>Push Brand Campaign above 70% opt score</li>
+          <li>Review Saskatoon PMax audiences</li>
+          <li>Reallocate budget per new plan</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">16 / 17</div>
+</div>
+
+<!-- ═══════════════════ SLIDE 16: SUMMARY ═══════════════════ -->
+<div class="slide" id="s16">
+  <div class="glow-accent" style="bottom:-200px;left:-100px;"></div>
+  <div class="eyebrow">Next Steps</div>
+  <h2>Action Plan <span>Summary</span></h2>
+
+  <div class="card-grid" style="grid-template-columns:repeat(4,1fr);">
+    <div class="card critical" style="text-align:center;">
+      <h3 style="color:var(--red);">Today</h3>
+      <p><strong style="color:#fff;">Fix payment method</strong></p>
+      <p><strong style="color:#fff;">Add negative keywords</strong><br>(mattress topper, air mattress)</p>
+    </div>
+    <div class="card warning" style="text-align:center;">
+      <h3 style="color:var(--amber);">This Week</h3>
+      <p><strong style="color:#fff;">Build 3 size pages</strong><br>(king, queen, twin)</p>
+      <p><strong style="color:#fff;">Build 5 store pages</strong></p>
+      <p><strong style="color:#fff;">Install GTM on new site</strong></p>
+    </div>
+    <div class="card info" style="text-align:center;">
+      <h3 style="color:var(--blue);">Launch Day</h3>
+      <p><strong style="color:#fff;">Update all 17 campaign URLs</strong></p>
+      <p><strong style="color:#fff;">Map old URLs &rarr; new</strong></p>
+      <p><strong style="color:#fff;">Verify all conversions fire</strong></p>
+    </div>
+    <div class="card good" style="text-align:center;">
+      <h3 style="color:var(--green);">Launch Week</h3>
+      <p><strong style="color:#fff;">Launch size-specific campaigns</strong></p>
+      <p><strong style="color:#fff;">Consolidate Pillows &rarr; 2</strong></p>
+      <p><strong style="color:#fff;">Reallocate budget</strong></p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;background:rgba(34,197,94,.04);border-color:rgba(34,197,94,.2);text-align:center;">
+    <p style="font-size:16px;"><strong style="color:var(--green);">Site Readiness: 85%</strong> &mdash; 34 of 40 needed pages already exist on modernmattress.ca. Only 12 new pages to build.</p>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;">
+    <p style="font-size:13px;color:var(--text-dim);letter-spacing:1px;">MODERN MATTRESS &mdash; GOOGLE ADS STRATEGY &mdash; APRIL 2026</p>
+    <p style="font-size:13px;color:var(--text-dim);margin-top:4px;">Prepared for the Modern Mattress team &mdash; Saskatchewan</p>
+    <p style="font-size:13px;color:var(--text-dim);margin-top:4px;">modernmattress.ca</p>
+  </div>
+  <div class="slide-num">17 / 17</div>
+</div>
+
+</body>
+</html>
